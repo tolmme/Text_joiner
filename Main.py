@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, simpledialog
 import os
 from datetime import datetime
 
@@ -9,17 +9,23 @@ def join_text_files():
     root.withdraw()  # Hide the root window
 
     # Open file dialog to select multiple files
-    file_paths = filedialog.askopenfilenames(title="Select text files to join",
-                                             filetypes=[("Text Files", "*.txt")])
+    file_paths = filedialog.askopenfilenames(title="Select text or markdown files to join",
+                                             filetypes=[("Text and Markdown Files", "*.txt *.md")])
 
     if not file_paths:
         print("No files selected. Exiting.")
         return
 
+    # Ask user for the output format
+    output_format = simpledialog.askstring("Output Format", "Enter output format (txt or md):")
+    if output_format not in ["txt", "md"]:
+        print("Invalid format selected. Exiting.")
+        return
+
     # Prepare the output file name
     file_count = len(file_paths)
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    output_file_name = f"Merged_text_of_{file_count}_files_{timestamp}.txt"
+    output_file_name = f"Merged_text_of_{file_count}_files_{timestamp}.{output_format}"
     output_dir = os.path.dirname(file_paths[0])
     output_file_path = os.path.join(output_dir, output_file_name)
 

@@ -9,16 +9,16 @@ def join_text_files():
     root.withdraw()  # Hide the root window
 
     # Open file dialog to select multiple files
-    file_paths = filedialog.askopenfilenames(title="Select text or markdown files to join",
-                                             filetypes=[("Text and Markdown Files", "*.txt *.md")])
+    file_paths = filedialog.askopenfilenames(title="Select text, markdown, or HTML files to join",
+                                             filetypes=[("Text, Markdown, and HTML Files", "*.txt *.md *.html")])
 
     if not file_paths:
         print("No files selected. Exiting.")
         return
 
     # Ask user for the output format
-    output_format = simpledialog.askstring("Output Format", "Enter output format (txt or md):")
-    if output_format not in ["txt", "md"]:
+    output_format = simpledialog.askstring("Output Format", "Enter output format (txt, md, or html):")
+    if output_format not in ["txt", "md", "html"]:
         print("Invalid format selected. Exiting.")
         return
 
